@@ -8,6 +8,28 @@ from flask.helpers import get_root_path
 
 data = pd.read_excel('stats(2).xlsx')
 
+inpactData = pd.read_excel('inpact.xlsx')
+
+figPSM = px.bar(inpactData, x=" ", y="PSM-9", width =400,
+                 color="Category", barmode="group", color_discrete_sequence=px.colors.qualitative.Pastel)
+figHeartRate = px.bar(inpactData, x=" ", y="Heart rate", width =400,
+                 color="Category", barmode="group", color_discrete_sequence=px.colors.qualitative.Pastel)
+figSystolic= px.bar(inpactData, x=" ", y="Systolic BP", width =400,
+                 color="Category", barmode="group", color_discrete_sequence=px.colors.qualitative.Pastel)
+figDiastolic = px.bar(inpactData, x=" ", y="Diastolic BP", width =400,
+                 color="Category", barmode="group", color_discrete_sequence=px.colors.qualitative.Pastel)
+
+figHeartRate.update_layout(showlegend=False)
+figSystolic.update_layout(showlegend=False)
+figDiastolic.update_layout(showlegend=False)
+figPSM.update_layout(legend=dict(
+    orientation="h",
+    entrywidth=100,
+    yanchor="bottom",
+    y=1.02,
+    xanchor="left",
+    x=0
+))
 
 app = Dash(__name__)
 
@@ -36,7 +58,13 @@ app.layout = html.Div([
     html.Div(className='main-site', children= [
         html.H1('The rise of cozy games', className='big-title'),
         html.P('All of these genres can be seen as cozy, choose which ones you want to include!'),
-        dcc.Graph(id='graph', figure=fig)
+        dcc.Graph(id='graph', figure=fig),
+        html.Div(className='row', children =[
+        dcc.Graph(id = 'PSM', figure = figPSM, style = {'display': 'inline-block'}),
+        dcc.Graph(id = 'Heart', figure = figHeartRate, style = {'display': 'inline-block'}),
+        dcc.Graph(id = 'systolic', figure = figSystolic, style = {'display': 'inline-block'}),
+        dcc.Graph(id = 'diastolic', figure = figDiastolic, style = {'display': 'inline-block'})
+    ])
         ])
 ])
 
@@ -51,6 +79,8 @@ app.layout = html.Div([
         
 
 #     return fig
+
+
 
 
 if __name__ == '__main__':

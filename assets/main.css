@@ -2,5 +2,22 @@
 
 body{
     font-family: "Poppins", sans-serif;
+    margin: 0px;
     
+}
+
+.big-title{
+    font-size: 3rem;
+    text-align: center;
+
+}
+
+.cosmo {
+    margin:0px;
+    position: sticky;
+    top:0;
+}
+
+.main-site{
+    margin: 100px 400px 100px 400px;
 }

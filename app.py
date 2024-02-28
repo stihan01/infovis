@@ -46,7 +46,7 @@ fig = px.bar(
         color_discrete_sequence=px.colors.qualitative.Pastel
         )
 fig.update_layout(
-    font_family="Poppins"
+    font_family="Poppins",
 )
 
 
@@ -55,9 +55,11 @@ values_US_2020 = [59, 41]
 values_US_2021 = [55, 45]
 values_US_2022 = [52, 48]
 
-values_EU_2020 = [59, 41]
-values_EU_2021 = [55, 45]
+values_EU_2020 = [54, 46]
+values_EU_2021 = [53, 47]
 values_EU_2022 = [52, 48]
+
+fig_US = px.pie(data_US, values=values_US_2020, names=labels, title="2020", width = 300)
 
 fig_US_20 = px.pie(data_US, values=values_US_2020, names=labels, title="2020", width = 300)
 fig_US_21 = px.pie(data_US, values=values_US_2021, names=labels, title="2021", width = 300)
@@ -95,35 +97,28 @@ app.layout = html.Div([
             dcc.Graph(id = 'systolic', figure = figSystolic, style = {'display': 'inline-block'}),
             dcc.Graph(id = 'diastolic', figure = figDiastolic, style = {'display': 'inline-block'})
         ]),
-        html.H3("USA Players:"),
+        html.Div({
+            dcc.Button("2020", id="button20")
+        })
+        # html.H3("USA Players:"),
         html.Div(id="pieCharts", className="row", children=[
+            dcc.Graph(id='test',figure=fig_US, style={"display": "inline-block"}),
 
-            dcc.Graph(id='US20',figure=fig_US_20, style={
-                "display": "inline-block"
-            }),
-            dcc.Graph(id='US21',figure=fig_US_21, style={
-                "display": "inline-block"
-            }),
-            dcc.Graph(id='US22',figure=fig_US_22, style={
-                "display": "inline-block"
-            }),
+            dcc.Graph(id='US20',figure=fig_US_20, style={"display": "inline-block"}),
+            dcc.Graph(id='US21',figure=fig_US_21, style={"display": "inline-block"}),
+            dcc.Graph(id='US22',figure=fig_US_22, style={"display": "inline-block"}),
             html.H3("Europe Players:"),
-            dcc.Graph(id='EU20',figure=fig_EU_20, style={
-                "display": "inline-block"
-            }),
-            dcc.Graph(id='EU21',figure=fig_EU_21, style={
-                "display": "inline-block"
-            }),
-            dcc.Graph(id='EU22',figure=fig_EU_22, style={
-                "display": "inline-block"
-            })
+            dcc.Graph(id='EU20',figure=fig_EU_20, style={"display": "inline-block"}),
+            dcc.Graph(id='EU21',figure=fig_EU_21, style={"display": "inline-block"}),
+            dcc.Graph(id='EU22',figure=fig_EU_22, style={"display": "inline-block"})
         ])
     ])
 ])
 
 
 
-# @app.callback(
+@app.callback(
+
 #     Output("graph", "figure"), 
 #     Input("checklist", "value"))
 # def display_color(selected_genres):

@@ -48,8 +48,9 @@ app.layout = html.Div([
         value=['Cozy'],
         id='checklist'),
         dcc.Graph(id='graph'),
+
     html.H3("USA Players:"),
-    html.Div(className="row", children=[
+    html.Div(id="pieCharts", className="row", children=[
 
         dcc.Graph(id='US20',figure=fig_US_20, style={
             "display": "inline-block"
@@ -71,7 +72,6 @@ app.layout = html.Div([
             "display": "inline-block"
         })
     ])
-
     
 ])
 

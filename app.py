@@ -10,13 +10,13 @@ data = pd.read_excel('stats(2).xlsx')
 
 inpactData = pd.read_excel('inpact.xlsx')
 
-figPSM = px.bar(inpactData, x=" ", y="PSM-9", 
+figPSM = px.bar(inpactData, x=" ", y="PSM-9", width =400,
                  color="Category", barmode="group", color_discrete_sequence=px.colors.qualitative.Pastel)
-figHeartRate = px.bar(inpactData, x=" ", y="Heart rate", 
+figHeartRate = px.bar(inpactData, x=" ", y="Heart rate", width =400,
                  color="Category", barmode="group", color_discrete_sequence=px.colors.qualitative.Pastel)
-figSystolic= px.bar(inpactData, x=" ", y="Systolic BP", 
+figSystolic= px.bar(inpactData, x=" ", y="Systolic BP", width =400,
                  color="Category", barmode="group", color_discrete_sequence=px.colors.qualitative.Pastel)
-figDiastolic = px.bar(inpactData, x=" ", y="Diastolic BP", 
+figDiastolic = px.bar(inpactData, x=" ", y="Diastolic BP", width =400,
                  color="Category", barmode="group", color_discrete_sequence=px.colors.qualitative.Pastel)
 
 figHeartRate.update_layout(showlegend=False)
@@ -45,12 +45,10 @@ app.layout = html.Div([
     dcc.Graph(id='graph'),
     html.Div(className='row', children =[
         dcc.Graph(id = 'PSM', figure = figPSM, style = {'display': 'inline-block'}),
-        dcc.Graph(id = 'Heart', figure = figHeartRate, style = {'display': 'inline-block'})
-    ]),
-    html.Div(className='row', children =[
+        dcc.Graph(id = 'Heart', figure = figHeartRate, style = {'display': 'inline-block'}),
         dcc.Graph(id = 'systolic', figure = figSystolic, style = {'display': 'inline-block'}),
         dcc.Graph(id = 'diastolic', figure = figDiastolic, style = {'display': 'inline-block'})
-    ])
+    ]),
 ])
 
 

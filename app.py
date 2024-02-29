@@ -55,8 +55,8 @@ values_US_2020 = [59, 41]
 values_US_2021 = [55, 45]
 values_US_2022 = [52, 48]
 
-values_EU_2020 = [59, 41]
-values_EU_2021 = [55, 45]
+values_EU_2020 = [54, 46]
+values_EU_2021 = [53, 47]
 values_EU_2022 = [52, 48]
 
 fig_US_20 = px.pie(data_US, values=values_US_2020, names=labels, title="2020", width = 300)

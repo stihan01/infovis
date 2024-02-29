@@ -1,4 +1,4 @@
-from dash import Dash, dcc, html, Input, Output
+from dash import Dash, dcc, html, Input, Output, no_update
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 import plotly.express as px
@@ -13,6 +13,24 @@ data_EU = pd.read_excel('users_EU.xlsx')
 
 inpactData = pd.read_excel('inpact.xlsx')
 
+## world map------------------------------------------
+dataworld = pd.read_excel('users_all.xlsx')
+dfworld = pd.DataFrame(dataworld)
+
+
+worldmap = px.scatter_geo(dfworld, locations="iso_alpha",
+    color="country", 
+    hover_name="country", 
+    hover_data=["Men",'Women'],
+    size=[10,10,10,10,10,10,10],
+    color_discrete_sequence=px.colors.qualitative.Pastel)
+worldmap.update_traces(
+    hoverinfo="none",
+    hovertemplate=None,
+)
+
+
+### world map--------------------------------------
 figPSM = px.bar(inpactData, x=" ", y="PSM-9", width =400, height=400,
                  color="Category", barmode="group", color_discrete_sequence=px.colors.qualitative.Pastel)
 figHeartRate = px.bar(inpactData, x=" ", y="Heart rate", width =400, height=400,
@@ -65,15 +83,40 @@ fig_US_21 = px.pie(data_US, values=values_US_2021, names=labels, title="2021", w
 fig_US_22 = px.pie(data_US, values=values_US_2022, names=labels, title="2022", width = 325)
 
 fig_US_20.update_layout(showlegend=False)
+fig_US_20.update_layout({
+'plot_bgcolor': 'rgba(0, 0, 0, 0)',
+'paper_bgcolor': 'rgba(0, 0, 0, 0)',
+})
 fig_US_21.update_layout(showlegend=False)
+fig_US_21.update_layout({
+'plot_bgcolor': 'rgba(0, 0, 0, 0)',
+'paper_bgcolor': 'rgba(0, 0, 0, 0)',
+})
+fig_US_22.update_layout(showlegend=False)
+fig_US_22.update_layout({
+'plot_bgcolor': 'rgba(0, 0, 0, 0)',
+'paper_bgcolor': 'rgba(0, 0, 0, 0)',
+})
 
 fig_EU_20 = px.pie(data_US, values=values_EU_2020, names=labels, title="2020", width = 300)
 fig_EU_21 = px.pie(data_US, values=values_EU_2021, names=labels, title="2021", width = 300)
 fig_EU_22 = px.pie(data_US, values=values_EU_2022, names=labels, title="2022", width = 300)
 
 fig_EU_20.update_layout(showlegend=False)
+fig_EU_20.update_layout({
+'plot_bgcolor': 'rgba(0, 0, 0, 0)',
+'paper_bgcolor': 'rgba(0, 0, 0, 0)',
+})
 fig_EU_21.update_layout(showlegend=False)
+fig_EU_21.update_layout({
+'plot_bgcolor': 'rgba(0, 0, 0, 0)',
+'paper_bgcolor': 'rgba(0, 0, 0, 0)',
+})
 fig_EU_22.update_layout(showlegend=False)
+fig_EU_22.update_layout({
+'plot_bgcolor': 'rgba(0, 0, 0, 0)',
+'paper_bgcolor': 'rgba(0, 0, 0, 0)',
+})
 
 
 #dcc.Checklist(
@@ -96,43 +139,68 @@ app.layout = html.Div([
             dcc.Graph(id = 'systolic', figure = figSystolic, style = {'display': 'inline-block'}),
             dcc.Graph(id = 'diastolic', figure = figDiastolic, style = {'display': 'inline-block'})
         ]),
-        html.H3("USA Players:"),
-        html.Div(id="pieCharts", className="row", children=[
+        html.Div( children=[
+            #html.H3("USA Players:"),
+            html.Div(id="pieCharts", className="pie-charts", children=[
 
-            dcc.Graph(id='US20',figure=fig_US_20, style={
-                "display": "inline-block"
-            }),
-            dcc.Graph(id='US21',figure=fig_US_21, style={
-                "display": "inline-block"
-            }),
-            dcc.Graph(id='US22',figure=fig_US_22, style={
-                "display": "inline-block"
-            }),
-            html.H3("Europe Players:"),
-            dcc.Graph(id='EU20',figure=fig_EU_20, style={
-                "display": "inline-block"
-            }),
-            dcc.Graph(id='EU21',figure=fig_EU_21, style={
-                "display": "inline-block"
-            }),
-            dcc.Graph(id='EU22',figure=fig_EU_22, style={
-                "display": "inline-block"
-            })
+                # dcc.Graph(id='US20',figure=fig_US_20, style={
+                #     "display": "inline-block"
+                # }),
+                # dcc.Graph(id='US21',figure=fig_US_21, style={
+                #     "display": "inline-block"
+                # }),
+                dcc.Graph(id='US22',figure=fig_US_22, className='pie-chart-eu'),
+                # html.H3("Europe Players:"),
+                # dcc.Graph(id='EU20',figure=fig_EU_20, style={
+                #     "display": "inline-block"
+                # }),
+                # dcc.Graph(id='EU21',figure=fig_EU_21, style={
+                #     "display": "inline-block"
+                # }),
+                dcc.Graph(id='EU22',figure=fig_EU_22, className='pie-chart-us')
+            ]),
+            dcc.Dropdown(options=[2020,2021,2022], value=2022, id="dropdown"),
+            dcc.Graph(id="scatter_geo", figure=worldmap),
+            dcc.Tooltip(id="graph-tooltip", direction='bottom')
         ])
     ])
 ])
 
 
 
-# @app.callback(
-#     Output("graph", "figure"), 
-#     Input("checklist", "value"))
-# def display_color(selected_genres):
-    
-    
-        
+@app.callback(
+    Output("graph-tooltip", "show"),
+    Output("graph-tooltip", "bbox"),
+    Output("graph-tooltip", "children"),
+    Input('scatter_geo','hoverData'),
+    Input('dropdown','value'))
 
-#     return fig
+def update_graph(hoverData,value):
+    if hoverData is None:
+        return False, no_update, no_update
+
+    else:
+        pt = hoverData["points"][0]['hovertext']
+        pt2 = hoverData["points"][0]
+        bbox = pt2["bbox"]
+        value2 = value
+        dff = dfworld[dfworld['country']==pt]
+        dff['Year'] = dff['Year'].astype('int64')
+        dff2 = dff[dff['Year']== value]
+        print(dff)
+        print(value)
+        print(dff2)
+        dff3 = dff2.melt(id_vars=['country','iso_alpha'], value_vars=['Men','Women'])
+        fig2 = px.pie(dff3, values='value', names='variable')
+        fig2.update_layout(margin=dict(l=0, r=0, t=0, b=0), showlegend=True)
+        children = [
+        html.Div([
+            dcc.Graph(
+                figure=fig2,style={"width": "200px", 'height':'200px'})
+            ])
+        ]
+
+        return True, bbox, children
 
 
 

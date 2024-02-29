@@ -70,54 +70,54 @@ fig.update_layout(
 )
 
 
-labels = ["Men", "Women"]
-values_US_2020 = [59, 41]
-values_US_2021 = [55, 45]
-values_US_2022 = [52, 48]
+# labels = ["Men", "Women"]
+# values_US_2020 = [59, 41]
+# values_US_2021 = [55, 45]
+# values_US_2022 = [52, 48]
 
-values_EU_2020 = [54, 46]
-values_EU_2021 = [53, 47]
-values_EU_2022 = [52, 48]
+# values_EU_2020 = [54, 46]
+# values_EU_2021 = [53, 47]
+# values_EU_2022 = [52, 48]
 
-fig_US_20 = px.pie(data_US, values=values_US_2020, names=labels, title="2020", width = 300)
-fig_US_21 = px.pie(data_US, values=values_US_2021, names=labels, title="2021", width = 300)
-fig_US_22 = px.pie(data_US, values=values_US_2022, names=labels, title="2022", width = 325)
+# fig_US_20 = px.pie(data_US, values=values_US_2020, names=labels, title="2020", width = 300)
+# fig_US_21 = px.pie(data_US, values=values_US_2021, names=labels, title="2021", width = 300)
+# fig_US_22 = px.pie(data_US, values=values_US_2022, names=labels, title="2022", width = 325)
 
-fig_US_20.update_layout(showlegend=False)
-fig_US_20.update_layout({
-'plot_bgcolor': 'rgba(0, 0, 0, 0)',
-'paper_bgcolor': 'rgba(0, 0, 0, 0)',
-})
-fig_US_21.update_layout(showlegend=False)
-fig_US_21.update_layout({
-'plot_bgcolor': 'rgba(0, 0, 0, 0)',
-'paper_bgcolor': 'rgba(0, 0, 0, 0)',
-})
-fig_US_22.update_layout(showlegend=False)
-fig_US_22.update_layout({
-'plot_bgcolor': 'rgba(0, 0, 0, 0)',
-'paper_bgcolor': 'rgba(0, 0, 0, 0)',
-})
+# fig_US_20.update_layout(showlegend=False)
+# fig_US_20.update_layout({
+# 'plot_bgcolor': 'rgba(0, 0, 0, 0)',
+# 'paper_bgcolor': 'rgba(0, 0, 0, 0)',
+# })
+# fig_US_21.update_layout(showlegend=False)
+# fig_US_21.update_layout({
+# 'plot_bgcolor': 'rgba(0, 0, 0, 0)',
+# 'paper_bgcolor': 'rgba(0, 0, 0, 0)',
+# })
+# fig_US_22.update_layout(showlegend=False)
+# fig_US_22.update_layout({
+# 'plot_bgcolor': 'rgba(0, 0, 0, 0)',
+# 'paper_bgcolor': 'rgba(0, 0, 0, 0)',
+# })
 
-fig_EU_20 = px.pie(data_US, values=values_EU_2020, names=labels, title="2020", width = 300)
-fig_EU_21 = px.pie(data_US, values=values_EU_2021, names=labels, title="2021", width = 300)
-fig_EU_22 = px.pie(data_US, values=values_EU_2022, names=labels, title="2022", width = 300)
+# fig_EU_20 = px.pie(data_US, values=values_EU_2020, names=labels, title="2020", width = 300)
+# fig_EU_21 = px.pie(data_US, values=values_EU_2021, names=labels, title="2021", width = 300)
+# fig_EU_22 = px.pie(data_US, values=values_EU_2022, names=labels, title="2022", width = 300)
 
-fig_EU_20.update_layout(showlegend=False)
-fig_EU_20.update_layout({
-'plot_bgcolor': 'rgba(0, 0, 0, 0)',
-'paper_bgcolor': 'rgba(0, 0, 0, 0)',
-})
-fig_EU_21.update_layout(showlegend=False)
-fig_EU_21.update_layout({
-'plot_bgcolor': 'rgba(0, 0, 0, 0)',
-'paper_bgcolor': 'rgba(0, 0, 0, 0)',
-})
-fig_EU_22.update_layout(showlegend=False)
-fig_EU_22.update_layout({
-'plot_bgcolor': 'rgba(0, 0, 0, 0)',
-'paper_bgcolor': 'rgba(0, 0, 0, 0)',
-})
+# fig_EU_20.update_layout(showlegend=False)
+# fig_EU_20.update_layout({
+# 'plot_bgcolor': 'rgba(0, 0, 0, 0)',
+# 'paper_bgcolor': 'rgba(0, 0, 0, 0)',
+# })
+# fig_EU_21.update_layout(showlegend=False)
+# fig_EU_21.update_layout({
+# 'plot_bgcolor': 'rgba(0, 0, 0, 0)',
+# 'paper_bgcolor': 'rgba(0, 0, 0, 0)',
+# })
+# fig_EU_22.update_layout(showlegend=False)
+# fig_EU_22.update_layout({
+# 'plot_bgcolor': 'rgba(0, 0, 0, 0)',
+# 'paper_bgcolor': 'rgba(0, 0, 0, 0)',
+# })
 
 
 
@@ -166,7 +166,7 @@ app.layout = html.Div([
                 # dcc.Graph(id='US21',figure=fig_US_21, style={
                 #     "display": "inline-block"
                 # }),
-                dcc.Graph(id='US22',figure=fig_US_22, className='pie-chart-eu'),
+                # dcc.Graph(id='US22',figure=fig_US_22, className='pie-chart-eu'),
                 # html.H3("Europe Players:"),
                 # dcc.Graph(id='EU20',figure=fig_EU_20, style={
                 #     "display": "inline-block"
@@ -174,7 +174,7 @@ app.layout = html.Div([
                 # dcc.Graph(id='EU21',figure=fig_EU_21, style={
                 #     "display": "inline-block"
                 # }),
-                dcc.Graph(id='EU22',figure=fig_EU_22, className='pie-chart-us'),
+                # dcc.Graph(id='EU22',figure=fig_EU_22, className='pie-chart-us'),
               dcc.Graph(id="genre", figure=fig_genre, style={
                 "display": "inline-block"
             })

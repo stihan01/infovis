@@ -6,6 +6,13 @@ body{
     
 }
 
+.background {
+    background: url('./world-map.min.svg');
+    background-repeat: no-repeat;
+    background-size: contain;
+
+}
+
 .big-title{
     font-size: 3rem;
     text-align: center;
@@ -20,5 +27,21 @@ body{
 }
 
 .main-site{
-    margin: 100px 400px 100px 400px;
+    margin: 10vh 20vw 10vh 20vw;
+}
+
+.pie-chart-eu{
+    display: flex;
+    align-items: flex-start;
+
+
+}
+
+.pie-chart-us{
+    display: inline-block;
+
+}
+
+.pie-charts{
+    display: flex;
 }

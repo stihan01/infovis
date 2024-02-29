@@ -10,6 +10,7 @@ from flask.helpers import get_root_path
 data = pd.read_excel('stats(2).xlsx')
 data_US = pd.read_excel('users_USA.xlsx')
 data_EU = pd.read_excel('users_EU.xlsx')
+data_genre = pd.read_excel('female in game genre.xlsx')
 
 inpactData = pd.read_excel('inpact.xlsx')
 
@@ -75,6 +76,21 @@ fig_EU_21.update_layout(showlegend=False)
 fig_EU_22.update_layout(showlegend=False)
 
 
+
+genres = ["Match 3", "Family/Farm sim", "Casual Puzzel", "Atmpospheric Exploration",
+      "Interactive Drama", "MMOs (High Fantasy)", "Japanese RPG", "Western RPG",
+      "Survival Roguelike", "Platformer", "City Building", "Action RPG", "Sandbox",
+      "Action Adventure", "MMOs (Sci-Fi)", "Open World", "Turn-Based Strategy", "MOBA",
+      "Grand Strategy", "First-Person shooter", "Racing", "Tactical Shooter", "Sports"
+
+]
+
+fig_genre = go.Figure()
+fig_genre.add_bar(x=[69,69,42,41,37,36,33,26,25,25,22,20,18,18,16,14,11,10,7,7,6,4,2],y=genres, name="Women",orientation='h')
+fig_genre.add_bar(x=[31,31,58,59,63,64,67,74,75,75,78,80,82,82,84,86,89,90,93,93,94,96,98],y=genres, name= "Men",orientation='h')
+fig_genre.update_layout(barmode="relative")
+
+
 #dcc.Checklist(
             #options= ['Cozy','Wholesome','Relaxing'],
             #value=['Cozy'],
@@ -115,6 +131,9 @@ app.layout = html.Div([
                 "display": "inline-block"
             }),
             dcc.Graph(id='EU22',figure=fig_EU_22, style={
+                "display": "inline-block"
+            }),
+            dcc.Graph(id="genre", figure=fig_genre, style={
                 "display": "inline-block"
             })
         ])

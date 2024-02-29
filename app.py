@@ -31,14 +31,13 @@ worldmap.update_traces(
 
 
 ### world map--------------------------------------
-
-figPSM = px.bar(inpactData, x=" ", y="PSM-9", width =400,
+figPSM = px.bar(inpactData, x=" ", y="PSM-9", width =400, height=400,
                  color="Category", barmode="group", color_discrete_sequence=px.colors.qualitative.Pastel)
-figHeartRate = px.bar(inpactData, x=" ", y="Heart rate", width =400,
+figHeartRate = px.bar(inpactData, x=" ", y="Heart rate", width =400, height=400,
                  color="Category", barmode="group", color_discrete_sequence=px.colors.qualitative.Pastel)
-figSystolic= px.bar(inpactData, x=" ", y="Systolic BP", width =400,
+figSystolic= px.bar(inpactData, x=" ", y="Systolic BP", width =400, height=400,
                  color="Category", barmode="group", color_discrete_sequence=px.colors.qualitative.Pastel)
-figDiastolic = px.bar(inpactData, x=" ", y="Diastolic BP", width =400,
+figDiastolic = px.bar(inpactData, x=" ", y="Diastolic BP", width =400, height=400,
                  color="Category", barmode="group", color_discrete_sequence=px.colors.qualitative.Pastel)
 
 figHeartRate.update_layout(showlegend=False)
@@ -61,7 +60,8 @@ fig = px.bar(
         y=['Cozy', 'Wholesome', 'Relaxing'], 
         text_auto=True, 
         title='Number of cozy games on steam over time',
-        labels={'år':'Year','value':'Number of games in this category','variable':'Category'},
+        labels={'år':'Year','value':'Number of games in this category','variable':'Category'}, 
+        barmode="group",
         color_discrete_sequence=px.colors.qualitative.Pastel
         )
 fig.update_layout(
@@ -74,8 +74,8 @@ values_US_2020 = [59, 41]
 values_US_2021 = [55, 45]
 values_US_2022 = [52, 48]
 
-values_EU_2020 = [59, 41]
-values_EU_2021 = [55, 45]
+values_EU_2020 = [54, 46]
+values_EU_2021 = [53, 47]
 values_EU_2022 = [52, 48]
 
 fig_US_20 = px.pie(data_US, values=values_US_2020, names=labels, title="2020", width = 300)

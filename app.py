@@ -14,6 +14,11 @@ data_genre = pd.read_excel('female in game genre.xlsx')
 
 inpactData = pd.read_excel('inpact.xlsx')
 
+colorsFirstGraph = ['#e76f51', '#f4a261', '#ffe1a8']
+colorMeditation = ['#94d2bd', '#f4a261', '#94d2bd']
+colorGenre = ['#adc178', '#f4e285', '#ffe1a8', '#2a9d8f']
+colorMap = [colorGenre[1], colorGenre[0], '#ffe1a8', '#2a9d8f']
+
 ## world map------------------------------------------
 dataworld = pd.read_excel('users_all.xlsx')
 dfworld = pd.DataFrame(dataworld)
@@ -24,8 +29,8 @@ worldmap = px.scatter_geo(dfworld, locations="iso_alpha",
     hover_name="country", 
     hover_data=["Men",'Women'],
     size=[10,10,10,10,10,10,10],
-    color_discrete_sequence=px.colors.qualitative.Pastel,
     labels={"country":"Region"})
+    color_discrete_sequence=colorMeditation)
 worldmap.update_traces(
     hoverinfo="none",
     hovertemplate=None,
@@ -34,13 +39,13 @@ worldmap.update_traces(
 
 ### world map--------------------------------------
 figPSM = px.bar(inpactData, x=" ", y="PSM-9", width =400, height=400,
-                 color="Category", barmode="group", color_discrete_sequence=px.colors.qualitative.Pastel)
+                 color="Category", barmode="group", color_discrete_sequence=colorMeditation)
 figHeartRate = px.bar(inpactData, x=" ", y="Heart rate", width =400, height=400,
-                 color="Category", barmode="group", color_discrete_sequence=px.colors.qualitative.Pastel)
+                 color="Category", barmode="group", color_discrete_sequence=colorMeditation)
 figSystolic= px.bar(inpactData, x=" ", y="Systolic BP", width =400, height=400,
-                 color="Category", barmode="group", color_discrete_sequence=px.colors.qualitative.Pastel)
+                 color="Category", barmode="group", color_discrete_sequence=colorMeditation)
 figDiastolic = px.bar(inpactData, x=" ", y="Diastolic BP", width =400, height=400,
-                 color="Category", barmode="group", color_discrete_sequence=px.colors.qualitative.Pastel)
+                 color="Category", barmode="group", color_discrete_sequence=colorMeditation)
 
 figHeartRate.update_layout(showlegend=False)
 figSystolic.update_layout(showlegend=False)
@@ -63,7 +68,7 @@ fig = px.bar(
         text_auto=True, 
         labels={'år':'Year','value':'Number of games in this category','variable':'Category'}, 
         barmode="group",
-        color_discrete_sequence=px.colors.qualitative.Pastel
+        color_discrete_sequence=colorsFirstGraph
         )
 fig.update_layout(
     font_family="Poppins"
@@ -130,8 +135,8 @@ genres = ["Match 3", "Family/Farm sim", "Casual Puzzel", "Atmpospheric Explorati
 ]
 
 fig_genre = go.Figure()
-fig_genre.add_bar(x=[69,69,42,41,37,36,33,26,25,25,22,20,18,18,16,14,11,10,7,7,6,4,2],y=genres, name="Women",orientation='h')
-fig_genre.add_bar(x=[31,31,58,59,63,64,67,74,75,75,78,80,82,82,84,86,89,90,93,93,94,96,98],y=genres, name= "Men",orientation='h')
+fig_genre.add_bar(x=[69,69,42,41,37,36,33,26,25,25,22,20,18,18,16,14,11,10,7,7,6,4,2],y=genres, name="Women",orientation='h',  marker_color=colorGenre[0])
+fig_genre.add_bar(x=[31,31,58,59,63,64,67,74,75,75,78,80,82,82,84,86,89,90,93,93,94,96,98],y=genres, name= "Men",orientation='h',  marker_color=colorGenre[1])
 fig_genre.update_layout(barmode="relative")
 fig_genre.update_layout(height=600, width=800)
 
@@ -226,7 +231,7 @@ def update_graph(hoverData,value):
         print(value)
         print(dff2)
         dff3 = dff2.melt(id_vars=['country','iso_alpha'], value_vars=['Men','Women'])
-        fig2 = px.pie(dff3, values='value', names='variable')
+        fig2 = px.pie(dff3, values='value', names='variable', color_discrete_sequence=colorMap)
         fig2.update_layout(margin=dict(l=0, r=0, t=0, b=0), showlegend=True)
         children = [
         html.Div([

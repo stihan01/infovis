@@ -26,8 +26,20 @@ body{
     z-index: 10;
 }
 
+.row{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
 .main-site{
     margin: 10vh 20vw 10vh 20vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    align-content: center;
 }
 
 .pie-chart-eu{
@@ -44,4 +56,6 @@ body{
 
 .pie-charts{
     display: flex;
+    justify-content: center;
+    flex-direction: column;
 }

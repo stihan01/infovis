@@ -29,6 +29,7 @@ worldmap = px.scatter_geo(dfworld, locations="iso_alpha",
     hover_name="country", 
     hover_data=["Men",'Women'],
     size=[10,10,10,10,10,10,10],
+    labels={"country":"Region"}),
     color_discrete_sequence=colorMeditation)
 worldmap.update_traces(
     hoverinfo="none",
@@ -65,7 +66,6 @@ fig = px.bar(
         data, x='år',
         y=['Cozy', 'Wholesome', 'Relaxing'], 
         text_auto=True, 
-        title='Number of cozy games on steam over time',
         labels={'år':'Year','value':'Number of games in this category','variable':'Category'}, 
         barmode="group",
         color_discrete_sequence=colorsFirstGraph
@@ -138,6 +138,7 @@ fig_genre = go.Figure()
 fig_genre.add_bar(x=[69,69,42,41,37,36,33,26,25,25,22,20,18,18,16,14,11,10,7,7,6,4,2],y=genres, name="Women",orientation='h',  marker_color=colorGenre[0])
 fig_genre.add_bar(x=[31,31,58,59,63,64,67,74,75,75,78,80,82,82,84,86,89,90,93,93,94,96,98],y=genres, name= "Men",orientation='h',  marker_color=colorGenre[1])
 fig_genre.update_layout(barmode="relative")
+fig_genre.update_layout(height=600, width=800)
 
 
 #dcc.Checklist(
@@ -152,17 +153,29 @@ app.layout = html.Div([
         html.Img(src=r'assets/cosmopolitan.png', alt='image')]),
     html.Div(className='main-site', children= [
         html.H1('The rise of cozy games', className='big-title'),
-        html.P('All of these genres can be seen as cozy, choose which ones you want to include!'),
+        html.P('You might have heard something about “Digital cocaine” in relation to games, and while this might be true for some games we have found that the opposite is true for another type of game. Cozy games are the new way to relax in our digital age. These types of games have been clinically proven to reduce both stress and anxiety. \n If you are worried about stepping into a space dominated by boys and men, do not worry. In recent years there has been a steady increase of girls and women who play games in both the US and in the EU. \n To jump on this new hot trend we recommend testing the cozy games Flower,  Spiritfarer and A little to the left.'),
+        html.H2("Number of cozy games on steam", style={'align-self':'left'}),
+        html.P('In the first table, the data represents how many new games in the three categories Cozy, Wholesome, and Relaxing are produced each year. The number of games released each year increases which could be in response to an increase in demand from the playerbase.\n Source: SteamDB'),
         dcc.Graph(id='graph', figure=fig),
-        html.Div(className='row', children =[
-            dcc.Graph(id = 'PSM', figure = figPSM, style = {'display': 'inline-block'}),
-            dcc.Graph(id = 'Heart', figure = figHeartRate, style = {'display': 'inline-block'}),
-            dcc.Graph(id = 'systolic', figure = figSystolic, style = {'display': 'inline-block'}),
-            dcc.Graph(id = 'diastolic', figure = figDiastolic, style = {'display': 'inline-block'})
-        ]),
+        html.H2("Playing cozy games can be just as effective as meditation"),
+        html.P("Struggling with getting into a meditation routine? Playing a cozy game can have a significant effect on you stress level, for example your heart rate going down. Source: Stress-Reducing Effects of Playing a Casual Video Game among Undergraduate Students, a study on the national library of medicine "),
+        html.Div(children=[
+            html.Div(className = "pie-charts", children=[
+                
+                html.Div(className='row', children =[
+                    dcc.Graph(id = 'PSM', figure = figPSM, style = {'display': 'inline-block'}),
+                    dcc.Graph(id = 'Heart', figure = figHeartRate, style = {'display': 'inline-block'}),
+                    dcc.Graph(id = 'systolic', figure = figSystolic, style = {'display': 'inline-block'}),
+                    dcc.Graph(id = 'diastolic', figure = figDiastolic, style = {'display': 'inline-block'})
+                ]),
 
-        html.Div( children=[
-            #html.H3("USA Players:"),
+            ]),
+        ]),
+        
+
+        
+            html.H2("Which type of games are other women out there playing?"),
+            html.P("In this table, the data represents game genres for games and the division between men and women. The top 5 genres for women are Match 3, Family//Farm sim, Casual Puzzel, Atmospheric Exploration, and Interactive Drama. These can all be tied to the cozy games genre. \n Source: According to Game Developer’s study on more than 270 000 gamers"),
             html.Div(id="pieCharts", className="pie-charts", children=[
 
                 # dcc.Graph(id='US20',figure=fig_US_20, style={
@@ -184,10 +197,12 @@ app.layout = html.Div([
                 "display": "inline-block"
             })
             ]),
+            html.H2("How many women play games worldwide?"),
+            html.P("Here is a representation of how many of the gamers in the USA and Europe are men and women respectively. There are data for the years 2020, 2021, and 2022, which show that the number of women playing games is slowly increasing. Source: ESA ( Entertainment Software Association) and Dataspelbranchen (Swedish game industry)"),
             dcc.Dropdown(options=[2020,2021,2022], value=2022, id="dropdown"),
             dcc.Graph(id="scatter_geo", figure=worldmap),
             dcc.Tooltip(id="graph-tooltip", direction='bottom')
-        ])
+        
     ])
 ])
 

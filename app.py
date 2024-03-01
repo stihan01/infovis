@@ -29,7 +29,7 @@ worldmap = px.scatter_geo(dfworld, locations="iso_alpha",
     hover_name="country", 
     hover_data=["Men",'Women'],
     size=[10,10,10,10,10,10,10],
-    labels={"country":"Region"})
+    labels={"country":"Region"},
     color_discrete_sequence=colorMeditation)
 worldmap.update_traces(
     hoverinfo="none",
